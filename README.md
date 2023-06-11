@@ -2,7 +2,7 @@
 I tested my SQL knowledge by trying the 8 weeks SQL challenge by Danny Ma. 
 This repository contains my personal solutions to the challenge.
 
-The challenge is breaked into two parts :
+The challenge is breaked into 8 parts :
   - Part 1 : https://8weeksqlchallenge.com/case-study-1/
   - Part 2 : https://8weeksqlchallenge.com/case-study-2/
   - Part 3 : https://8weeksqlchallenge.com/case-study-3/

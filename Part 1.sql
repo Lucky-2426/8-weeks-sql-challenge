@@ -1,4 +1,4 @@
--- Creating the database on my personl laptop using MySQL Workbench 
+-- Creating the database on my personal laptop using MySQL Workbench
 CREATE SCHEMA dannys_diner;
 
 CREATE TABLE sales (
