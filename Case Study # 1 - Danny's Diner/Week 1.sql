@@ -135,6 +135,28 @@ INNER JOIN menu as m
 ON p.product_id = m.product_id
 GROUP BY p.customer_id;
 
+-- 7. Which item was purchased just before the customer became a member?
+-- Asssumption: Since timestamp of purchase is not available, purchase made when order_date is before the join date is used to find the last item purchased just before the customer became a member
+
+WITH diner_info AS
+  (SELECT product_name,
+          s.customer_id,
+          order_date,
+          join_date,
+          m.product_id,
+          DENSE_RANK() OVER(PARTITION BY s.customer_id
+                            ORDER BY s.order_date DESC) AS item_rank
+   FROM dannys_diner.menu AS m
+   INNER JOIN dannys_diner.sales AS s ON m.product_id = s.product_id
+   INNER JOIN dannys_diner.members AS mem ON mem.customer_id = s.customer_id
+   WHERE order_date < join_date )
+SELECT customer_id,
+       product_name,
+       order_date,
+       join_date
+FROM diner_info
+WHERE item_rank=1;
+
 -- 8. What is the total items and amount spent for each member before they became a member?
 with purchases_after_membership as (
 		SELECT s.*, m.join_date
@@ -167,7 +189,38 @@ ON o.product_id = me.product_id
 GROUP BY o.customer_id;
 
 -- 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
+-- Assumption: Points is rewarded only after the customer joins in the membership program
 
+-- Steps
+-- 1. Find the program_last_date which is 7 days after a customer joins the program (including their join date)
+-- 2. Determine the customer points for each transaction and for members with a membership
+-- 		a. During the first week of the membership -> points = price*20 irrespective of the purchase item
+-- 		b. Product = Sushi -> and order_date is not within a week of membership -> points = price*20
+-- 		c. Product = Not Sushi -> and order_date is not within a week of membership -> points = price*10
+-- 3. Conditions in WHERE clause
+-- 		a. order_date <= '2021-01-31' -> Order must be placed before 31st January 2021
+-- 		b. order_date >= join_date -> Points awarded to only customers with a membership
+
+WITH program_last_day_cte AS
+  (SELECT join_date,
+          DATE_ADD(join_date, INTERVAL 7 DAY) AS program_last_date,
+          customer_id
+   FROM dannys_diner.members)
+SELECT s.customer_id,
+       SUM(CASE
+               WHEN order_date BETWEEN join_date AND program_last_date THEN price*10*2
+               WHEN order_date NOT BETWEEN join_date AND program_last_date
+                    AND product_name = 'sushi' THEN price*10*2
+               WHEN order_date NOT BETWEEN join_date AND program_last_date
+                    AND product_name != 'sushi' THEN price*10
+           END) AS customer_points
+FROM dannys_diner.menu AS m
+INNER JOIN dannys_diner.sales AS s ON m.product_id = s.product_id
+INNER JOIN program_last_day_cte AS mem ON mem.customer_id = s.customer_id
+AND order_date <='2021-01-31'
+AND order_date >=join_date
+GROUP BY s.customer_id
+ORDER BY s.customer_id;
 
 -- Join all the things
 Select s.customer_id, s.order_date, me.product_name, me.price, IF(m.join_date < s.order_date, "Y", "N") as membership
