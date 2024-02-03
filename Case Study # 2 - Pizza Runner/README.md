@@ -1,4 +1,5 @@
 # :pizza: Case Study #2: Pizza Runner
+
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/2.png" alt="Image" width="450" height="450">
 
@@ -44,11 +45,4 @@ There are some known data issues with few tables. Data cleaning was performed an
 - In the duration column, there are null values. The 'minutes', 'mins' 'minute' must be stripped
 - In the cancellation column, there are blank spaces and null values.
 
-Click [here](https://github.com/manaswikamila05/8-Week-SQL-Challenge/blob/main/Case%20Study%20%23%202%20-%20Pizza%20Runner/Data%20Clean.md) to view the data cleaning performed.
-
-## Case Study Solutions
-- [A. Pizza Metrics](https://github.com/manaswikamila05/8-Week-SQL-Challenge/blob/main/Case%20Study%20%23%202%20-%20Pizza%20Runner/A.%20Pizza%20metrics.md)
-- [B. Runner and Customer Experience](https://github.com/manaswikamila05/8-Week-SQL-Challenge/blob/main/Case%20Study%20%23%202%20-%20Pizza%20Runner/B.%20Runner%20and%20Customer%20Experience.md)
-- [C. Ingredient Optimisation](https://github.com/manaswikamila05/8-Week-SQL-Challenge/blob/main/Case%20Study%20%23%202%20-%20Pizza%20Runner/C.%20Ingredient%20Optimisation.md)
-- [D. Pricing and Ratings](https://github.com/manaswikamila05/8-Week-SQL-Challenge/blob/main/Case%20Study%20%23%202%20-%20Pizza%20Runner/D.%20Pricing%20and%20Ratings.md)
-- [E. Bonus Questions](https://github.com/manaswikamila05/8-Week-SQL-Challenge/blob/main/Case%20Study%20%23%202%20-%20Pizza%20Runner/E.%20Bonus%20Questions.md)
+Click [here](https://github.com/Lucky-2426/8-weeks-sql-challenge/blob/main/Case%20Study%20%23%202%20-%20Pizza%20Runner/0.%20Data%20Clean.md) to view the data cleaning performed.
