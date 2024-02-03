@@ -1,3 +1,4 @@
+-- Active: 1706953706370@@localhost@3306@pizza_runner
 SELECT * FROM customer_orders_temp;
 SELECT * FROM runner_orders_temp;
 SELECT * FROM pizza_toppings;
