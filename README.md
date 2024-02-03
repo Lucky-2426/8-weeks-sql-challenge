@@ -1,16 +1,26 @@
-# 8-weeks-sql-challenge
+# 8-Week-SQL-Challenge
 
-I tested my SQL knowledge by trying the 8 weeks SQL challenge by Danny Ma. 
-This repository contains my personal solutions to the challenge.
+This repository contains my personal solutions for the case studies in **[8WeekSQLChallenge](https://8weeksqlchallenge.com)**.
+The 8 Week SQL Challenge is started by Danny Ma through Data With Danny virtual data apprenticeship program, which consists of 8 different SQL challenges.
 
-The challenge is breaked into 8 parts and you can find my solutions via the following links :
-  - Part 1 : https://8weeksqlchallenge.com/case-study-1/
-  - Part 2 : https://8weeksqlchallenge.com/case-study-2/
-  - Part 3 : https://8weeksqlchallenge.com/case-study-3/
-  - Part 4 : https://8weeksqlchallenge.com/case-study-4/
-  - Part 5 : https://8weeksqlchallenge.com/case-study-5/
-  - Part 6 : https://8weeksqlchallenge.com/case-study-6/
-  - Part 7 : https://8weeksqlchallenge.com/case-study-7/
-  - Part 8 : https://8weeksqlchallenge.com/case-study-8/
+Each case-study folder contains the following folders :
+- SQL codes : where solutions are coded in raw MySQL
+- SQL codes explained where you will find md files with snapshots of the solutions explained in details per step
 
 
+Each case-study folder alwayscontains the following files : 
+- A readme file explaining the problem statement and datasets used
+- SQL file to create the schema, tables and loading data
+- MD files which contains SQL queries answering the respective challenge questions
+
+**Note**: 
+- Solutions are coded in **MySQL**
+
+## Challenge case studies ongoing but the finished ones are listed below :
+* 🍜[Case Study #1 - Danny's Diner](https://github.com/Lucky-2426/8-weeks-sql-challenge/tree/main/Case%20Study%20%23%201%20-%20Danny's%20Diner)
+* 🍕[Case Study #2 - Pizza Runner](https://github.com/Lucky-2426/8-weeks-sql-challenge/tree/main/Case%20Study%20%23%202%20-%20Pizza%20Runner)
+
+
+## Special shout out to [@Manaswi Kamila](https://github.com/manaswikamila05) who has inspired me a lot during this project!
+- His repository of "8-Week-SQL-Challenge" has inspired me to structure my repository and work with md files
+- Please give her a ⭐️ if you like this project and to me too!
