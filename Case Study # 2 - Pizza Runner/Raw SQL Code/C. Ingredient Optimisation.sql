@@ -23,8 +23,8 @@ SELECT * FROM runners;
 
 */
 
-## Temporary tables created to solve the below queries
-# 
+---- Temporary tables created to solve the below queries
+-- 
 
 DROP TABLE row_split_customer_orders_temp;
 
@@ -41,17 +41,20 @@ FROM
   (SELECT *,
           row_number() over() AS row_num
    FROM customer_orders_temp) t
-INNER JOIN json_table(trim(replace(json_array(t.exclusions), ',', '","')),
+INNER JOIN json_table(trim(replace(json_array(t.exclusions), ',', '","')), -- This query aims at splitting a JSON array stored in the 'exclusions' column into multiple rows, where each element of the array becomes a separate row.
                       '$[*]' columns (exclusions varchar(50) PATH '$')) j1 /* This part processes the exclusions column. It first converts the JSON array in t.exclusions into a comma-separated string, then replaces the commas with '","'. 
-																			 This is a way of ensuring that the JSON data is correctly formatted for the json_table function. It's then split and transformed using json_table, and the result is aliased as j1.*/
-INNER JOIN json_table(trim(replace(json_array(t.extras), ',', '","')),
+															This is a way of ensuring that the JSON data is correctly formatted for the json_table function. It's then split and transformed using json_table, and the result is aliased as j1.*/
+
+INNER JOIN json_table(trim(replace(json_array(t.extras), ',', '","')),-- This query aims at splitting a JSON array stored in the 'exclusions' column into multiple rows, where each element of the array becomes a separate row.
                       '$[*]' columns (extras varchar(50) PATH '$')) j2 ;
 
+
+-- example of usage of JSON_TABLE function : https://www.mysqltutorial.org/mysql-json/mysql-json_table/
 
 SELECT *
 FROM row_split_customer_orders_temp;
 
-# Pizza recip temporary table
+-- Pizza recip temporary table
 
 DROP TABLE row_split_pizza_recipes_temp;
 
@@ -67,7 +70,7 @@ JOIN json_table(trim(replace(json_array(t.toppings), ',', '","')),
 SELECT *
 FROM row_split_pizza_recipes_temp;
 
-# Ingredients temporary table
+-- Ingredients temporary table
 
 DROP TABLE IF EXISTS standard_ingredients;
 
@@ -86,12 +89,12 @@ SELECT *
 FROM standard_ingredients;
 
 
-###  1. What are the standard ingredients for each pizza?
+------  1. What are the standard ingredients for each pizza?
 
 SELECT *
 FROM standard_ingredients;
 
-###  2. What was the most commonly added extra?
+------  2. What was the most commonly added extra?
 
 WITH extra_count_cte AS
   (SELECT trim(extras) AS extra_topping,
@@ -105,7 +108,7 @@ FROM extra_count_cte AS E
 INNER JOIN pizza_toppings AS P ON E.extra_topping = P.topping_id
 LIMIT 1;
 
-###  3. What was the most common exclusion?
+------  3. What was the most common exclusion?
 
 WITH extra_count_cte AS
   (SELECT trim(exclusions) AS extra_topping,
@@ -120,7 +123,7 @@ INNER JOIN pizza_toppings P ON E.extra_topping = P.topping_id
 LIMIT 1;
 
 
-###  4. Generate an order item for each record in the customers_orders table in the format of one of the following:
+------  4. Generate an order item for each record in the customers_orders table in the format of one of the following:
 /*
 - Meat Lovers
 - Meat Lovers - Exclude Beef
@@ -156,10 +159,10 @@ SELECT order_id,
 FROM order_summary_cte
 GROUP BY row_num;
 
-###  5. Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients
-# For example: "Meat Lovers: 2xBacon, Beef, ... , Salami"
+------  5. Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients
+-- For example: "Meat Lovers: 2xBacon, Beef, ... , Salami"
 
 
 
-###  6. What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
+------  6. What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
 

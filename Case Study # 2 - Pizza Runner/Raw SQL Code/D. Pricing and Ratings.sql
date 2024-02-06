@@ -1,4 +1,4 @@
-# :pizza: Case Study #2: Pizza runner - Pricing and Ratings
+--- :pizza: Case Study ---2: Pizza runner - Pricing and Ratings
 
 /* Case Study Questions
 
@@ -20,7 +20,11 @@
 
 */
 
-###  1. If a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes - how much money has Pizza Runner made so far if there are no delivery fees?
+---------  1. If a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes - how much money has Pizza Runner made so far if there are no delivery fees?
+
+
+SELECT * FROM customer_orders_temp;
+SELECT * FROM runner_orders_temp;
 
 SELECT CONCAT('$', SUM(CASE
                            WHEN pizza_id = 1 THEN 12
@@ -31,7 +35,7 @@ INNER JOIN pizza_names USING (pizza_id)
 INNER JOIN runner_orders_temp USING (order_id)
 WHERE cancellation IS NULL;
 
-###  2. What if there was an additional $1 charge for any pizza extras? Add cheese is $1 extra
+---------  2. What if there was an additional $1 charge for any pizza extras? Add cheese is $1 extra
 
 
 SELECT CONCAT('$', topping_revenue+ pizza_revenue) AS total_revenue
@@ -50,7 +54,8 @@ FROM
       WHERE cancellation IS NULL
       ORDER BY order_id)t1) t2;
 
-###  3. The Pizza Runner team now wants to add an additional ratings system that allows customers to rate their runner, how would you design an additional table for this new dataset - generate a schema for this new table and insert your own data for ratings for each successful customer order between 1 to 5.
+---------  3. The Pizza Runner team now wants to add an additional ratings system that allows customers to rate their runner, 
+---------  How would you design an additional table for this new dataset - generate a schema for this new table and insert your own data for ratings for each successful customer order between 1 to 5.
 
 DROP TABLE IF EXISTS runner_rating;
 
@@ -60,9 +65,9 @@ CREATE TABLE runner_rating (order_id INTEGER, rating INTEGER, review VARCHAR(100
 INSERT INTO runner_rating
 VALUES ('1', '1', 'Really bad service'),
        ('2', '1', NULL),
-       ('3', '4', 'Took too long..."),
+       ('3', '4', 'Took too long...'),
        ('4', '1','Runner was lost, delivered it AFTER an hour. Pizza arrived cold' ),
-       ('5', '2', ''Good service'),
+       ('5', '2', 'Good service'),
        ('7', '5', 'It was great, good service and fast'),
        ('8', '2', 'He tossed it on the doorstep, poor service'),
        ('10', '5', 'Delicious!, he delivered it sooner than expected too!');
@@ -100,7 +105,7 @@ INNER JOIN runner_orders_temp USING (order_id)
 INNER JOIN runner_rating USING (order_id)
 GROUP BY order_id ;
 
-###  5. If a Meat Lovers pizza was $12 and Vegetarian $10 fixed prices with no cost for extras and each runner is paid $0.30 per kilometre traveled - how much money does Pizza Runner have left over after these deliveries?
+---------  5. If a Meat Lovers pizza was $12 and Vegetarian $10 fixed prices with no cost for extras and each runner is paid $0.30 per kilometre traveled - how much money does Pizza Runner have left over after these deliveries?
 
 SELECT concat('$', round(sum(pizza_cost-delivery_cost), 2)) AS pizza_runner_revenue
 FROM
@@ -121,5 +126,3 @@ FROM
       ORDER BY order_id) t1
    GROUP BY order_id
    ORDER BY order_id) t2;
-
-
