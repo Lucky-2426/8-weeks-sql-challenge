@@ -27,6 +27,7 @@ WHERE year(start_date) > 2020
 GROUP BY plan_id;
 
 --- 4. What is the customer count and percentage of customers who have churned rounded to 1 decimal place?
+
 -- Method A
 
 SELECT plan_name, count(DISTINCT customer_id) as 'churned customers',
