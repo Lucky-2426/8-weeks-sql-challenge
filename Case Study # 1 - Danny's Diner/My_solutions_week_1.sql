@@ -1,12 +1,29 @@
+-- Active: 1706953706370@@localhost@3306@dannys_diner
+
 -- Creating the database on my personal laptop using MySQL Workbench
 CREATE SCHEMA dannys_diner;
 
+-- Creating tables in the database
 CREATE TABLE sales (
   customer_id VARCHAR(1),
   order_date DATE,
   product_id INTEGER
 );
 
+
+CREATE TABLE menu (
+  product_id INTEGER,
+  product_name VARCHAR(5),
+  price INTEGER
+);
+
+
+CREATE TABLE members (
+  customer_id VARCHAR(1),
+  join_date DATE
+);
+
+-- Inserting data into the tables
 INSERT INTO sales
   (customer_id, order_date, product_id)
 VALUES
@@ -25,13 +42,7 @@ VALUES
   ('C', '2021-01-01', '3'),
   ('C', '2021-01-01', '3'),
   ('C', '2021-01-07', '3');
- 
 
-CREATE TABLE menu (
-  product_id INTEGER,
-  product_name VARCHAR(5),
-  price INTEGER
-);
 
 INSERT INTO menu
   (product_id, product_name, price)
@@ -41,17 +52,15 @@ VALUES
   ('3', 'ramen', '12');
   
 
-CREATE TABLE members (
-  customer_id VARCHAR(1),
-  join_date DATE
-);
-
 INSERT INTO members
   (customer_id, join_date)
 VALUES
   ('A', '2021-01-07'),
   ('B', '2021-01-09');
   
+
+--- Solving different questions
+
 -- 1. What is the total amount each customer spent at the restaurant? 
 WITH price_per_product_bought AS
 	(Select customer_id, s.product_id, count(s.product_id) as number_of_commands, m.price
@@ -231,9 +240,6 @@ JOIN menu as me
 ON s.product_id = me.product_id
 GROUP BY m.customer_id, s.order_date, me.product_name, me.price
 ORDER BY s.customer_id;
-
--- Ranking all the things
-
 
 -- Testing queries
 SELECT * from members;
